@@ -7,6 +7,7 @@ export default defineNuxtConfig({
     "@formkit/nuxt",
     '@nuxt/test-utils/module',
     "@nuxt/fonts",
+    "@nuxt/icon",
   ],
   css: ["@/assets/main.css"],
   tailwindcss: {
@@ -20,5 +21,8 @@ export default defineNuxtConfig({
       }
     },
   },
+  // plugins: [
+  //   '@/plugins/axios',
+  // ],
   devtools: { enabled: true },
 })

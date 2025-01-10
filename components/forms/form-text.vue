@@ -5,7 +5,7 @@
         </div>
         <input 
             :id="id" 
-            class="input input-bordered w-full" 
+            :class="['input input-bordered w-full', inputClass]" 
             :type="type" 
             :value="modelValue"
             :placeholder="placeholder"
@@ -22,11 +22,13 @@ interface Props {
     modelValue: string
     type?: string
     placeholder?: string
+    inputClass?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
     type: 'text',
-    placeholder: ''
+    placeholder: '',
+    inputClass: ''
 })
 
 const emit = defineEmits<{
@@ -57,7 +59,7 @@ const updateValue = (event: Event) => {
 }
 
 .input:focus {
-    @apply shadow-md shadow-primary/50;
+    @apply shadow-md;
 }
 
 .input:hover:not(:focus) {

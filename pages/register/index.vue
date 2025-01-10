@@ -15,17 +15,12 @@
             <h2 class="font-primary font-medium text-lg">Distribuição de produtos</h2>
             <FormsFormMultiselect v-model="form.cityDelivery" :options="cities" label="Cidades de entrega" />
             <h2 class="font-primary font-medium text-lg my-2">Informações adicionais</h2>
-            <div>
-                <label for="logomarca">Logomarca:</label>
-                <input id="logomarca" type="file" @change="handleFileUpload('logomarca', $event)" >
-            </div>
+            <FormsFormFileUpload v-model="form.logo" label="Logomarca" />
             <div>
                 <label for="certificacoes">Certificações Orgânicas:</label>
-                <input id="certificacoes" type="file" @change="handleFileUpload('certificacoes', $event)" >
             </div>
             <div>
                 <label for="fotoEquipe">Foto da Equipe:</label>
-                <input id="fotoEquipe" type="file" @change="handleFileUpload('fotoEquipe', $event)" >
             </div>
             <button class="btn btn-primary" type="submit">Submit</button>
         </form>
@@ -33,6 +28,12 @@
 </template>
 
 <script lang="ts" setup>
+
+type Option = {
+    label: string
+    value: string
+}
+
 
 const form = ref({
     nome: '',
@@ -48,6 +49,22 @@ const form = ref({
     certificacoes: null,
     fotoEquipe: null,
 });
+
+const cities = ref([]);
+
+onMounted(async () => {
+    getCities();
+});
+
+const getCities = async () => {
+    try {
+        const response = await $fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados/29/municipios');
+        cities.value = response.map(city => ({ value: city.id, label: city.nome }));
+        console.log(cities.value)
+    } catch (error) {
+        console.error('Error fetching cities:', error);
+    }
+}
 
 const submitForm = () => {
     console.log('Form submitted:', form.value);

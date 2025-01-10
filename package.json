@@ -10,21 +10,28 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@capacitor/android": "^6.2.0",
+    "@capacitor/camera": "^6.1.2",
+    "@capacitor/core": "^6.2.0",
+    "@capacitor/ios": "^6.2.0",
     "@formkit/nuxt": "^1.6.9",
     "@nuxt/fonts": "^0.10.3",
+    "@nuxt/icon": "^1.10.3",
+    "@nuxtjs/axios": "^5.13.6",
     "@nuxtjs/tailwindcss": "^6.12.2",
     "@vueuse/nuxt": "^12.3.0",
+    "axios": "^1.7.9",
     "nuxt": "^3.15.0",
     "vue": "latest",
     "vue-router": "latest"
   },
   "devDependencies": {
+    "@capacitor/cli": "^6.2.0",
     "@nuxt/test-utils": "^3.15.1",
     "@vue/test-utils": "^2.4.6",
     "daisyui": "^4.12.23",
     "happy-dom": "^15.11.7",
     "playwright-core": "^1.49.1",
-    "prettier": "^3.4.2",
     "typescript": "^5.7.3",
     "vitest": "^2.1.8"
   }
