@@ -14,16 +14,12 @@
                 <FormsFormText v-model="searchQuery" placeholder="Pesquisar pela cidade" input-class="input-sm w-full px-3 py-2 border-b border-gray-300 focus:outline-none"/>
                 <ul tabindex="-1" role="listbox" class="max-h-40 mt-2 sm:text-sm custom-scrollbar overflow-auto">
                     <li v-for="option in filteredOptions" :key="option" class="text-gray-900 cursor-default select-none relative py-2 pl-0 pr-9">
-                        <label class="flex-row form-control items-center">
-                            <input 
-                                type="checkbox"
-                                :id="option.value + '-checkbox'"
-                                class="checkbox checkbox-primary checkbox-sm mr-2"
-                                :checked="isSelected(option.label)"
-                                @click="toggleOption(option.label)"
-                            >
-                            <span class="font-normal ml-1 block truncate label-text" :for="option + '-checkbox'">{{ option.label }}</span>
-                        </label>
+                        <FormsFormCheckbox 
+                            :id="option.label + '-checkbox'"
+                            :option="option"
+                            v-model="selectedValue"
+                        >
+                        </FormsFormCheckbox>
                     </li>
                 </ul>
             </div>
@@ -64,10 +60,12 @@ const selectedOptions = ref<Option[]>([])
 const isOpen = ref(false)
 const dropdown = ref<HTMLElement | null>(null)
 const searchQuery = ref('')
+const selectedValue = ref('')
 
 const toggleDropdown = () => {
     isOpen.value = !isOpen.value
 }
+
 
 const toggleOption = (option: string) => {
     if (selectedOptions.value.includes(option)) {

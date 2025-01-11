@@ -1,43 +1,47 @@
 <template>
-    <div class="form-control">
-        <div class="label">
-            <label class="label-text" :for="id">{{ label }}</label>
-        </div>
-        <input 
-            :id="id" 
-            :class="['input input-bordered w-full', inputClass]" 
-            :type="type" 
-            :value="modelValue"
-            :placeholder="placeholder"
-            required 
-            @input="updateValue" 
-        >
+  <div class="form-control">
+    <div class="label">
+      <label class="label-text" :for="id">{{ label }}</label>
     </div>
+    <input 
+      :id="id" 
+      :class="['input input-bordered w-full', inputClass, { 'error': errorMessage }]" 
+      :type="type" 
+      :value="modelValue"
+      :placeholder="placeholder"
+      v-bind="$attrs"
+      required 
+      @input="updateValue" 
+    >
+    <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+  </div>
 </template>
 
 <script setup lang="ts">
 interface Props {
-    id: string
-    label: string
-    modelValue: string
-    type?: string
-    placeholder?: string
-    inputClass?: string
+  id: string
+  label: string
+  modelValue: string
+  type?: string
+  placeholder?: string
+  inputClass?: string
+  errorMessage?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    type: 'text',
-    placeholder: '',
-    inputClass: ''
+  type: 'text',
+  placeholder: '',
+  inputClass: '',
+  errorMessage: ''
 })
 
 const emit = defineEmits<{
-    (e: 'update:modelValue', value: string): void
+  (e: 'update:modelValue', value: string): void
 }>()
 
 const updateValue = (event: Event) => {
-    const target = event.target as HTMLInputElement
-    emit('update:modelValue', target.value)
+  const target = event.target as HTMLInputElement
+  emit('update:modelValue', target.value)
 }
 </script>
 
@@ -47,7 +51,7 @@ const updateValue = (event: Event) => {
 }
 
 .label {
-    @apply pt-0;
+  @apply pt-0;
 }
 
 .label-text {
@@ -59,7 +63,7 @@ const updateValue = (event: Event) => {
 }
 
 .input:focus {
-    @apply shadow-md;
+  @apply shadow-md;
 }
 
 .input:hover:not(:focus) {
